@@ -1,0 +1,83 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  4%|████▍                                                                                                 | 43/1001 [2:09:15<47:59:45, 180.36s/batch]
+Traceback (most recent call last):
+  File "one_pixel_vit.py", line 83, in <module>
+    attacked_img = scr.forward(data, labels)
+  File "/home/abass.abdulsalam/Documents/works/one_patch_DE/cPixelAttack.py", line 70, in forward
+    delta = differential_evolution(func=func,
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/scipy/optimize/_differentialevolution.py", line 392, in differential_evolution
+    ret = solver.solve()
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/scipy/optimize/_differentialevolution.py", line 993, in solve
+    next(self)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/scipy/optimize/_differentialevolution.py", line 1379, in __next__
+    energy = self.func(parameters)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/scipy/_lib/_util.py", line 407, in __call__
+    return self.f(x, *self.args)
+  File "/home/abass.abdulsalam/Documents/works/one_patch_DE/cPixelAttack.py", line 65, in func
+    return self._loss(image, label, delta)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torchattacks/attacks/onepixel.py", line 101, in _loss
+    prob = self._get_prob(adv_images)[:, label]
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torchattacks/attacks/onepixel.py", line 124, in _get_prob
+    out = self.model(batch)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/timm/models/vision_transformer.py", line 347, in forward
+    x = self.forward_features(x)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/timm/models/vision_transformer.py", line 339, in forward_features
+    x = self.blocks(x)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/timm/models/vision_transformer.py", line 213, in forward
+    x = x + self.drop_path(self.attn(self.norm1(x)))
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/abass.abdulsalam/.conda/envs/thesis/lib/python3.8/site-packages/timm/models/vision_transformer.py", line 193, in forward
+    x = (attn @ v).transpose(1, 2).reshape(B, N, C)
+KeyboardInterrupt
