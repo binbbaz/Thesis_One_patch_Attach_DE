@@ -5,7 +5,7 @@ from torchattacks import OnePixel
 
 
 class cOnePixel(OnePixel):
-    def __init__(self, model, pixels=1, steps=75, popsize=400, inf_batch=128):
+    def __init__(self, model, pixels=2, steps=75, popsize=400, inf_batch=128):
         super().__init__(model, pixels=pixels,
                          steps=steps,
                          popsize=popsize,

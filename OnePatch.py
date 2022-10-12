@@ -1,4 +1,3 @@
-from typing import Tuple, Union, Sequence
 
 import numpy as np
 import torch
@@ -7,8 +6,6 @@ from torchattacks.attack import Attack
 import torch.nn.functional as F
 import matplotlib.pyplot as plt
 
-DimensionTupleType = Tuple[Union[int, float], Union[int, float]]
-DimensionType = Union[DimensionTupleType, Sequence[DimensionTupleType]]
 
 
 class OnePatchAttack(Attack):
@@ -16,7 +13,7 @@ class OnePatchAttack(Attack):
                  population: int = 1,
                  mutation_rate: float = (0.5, 1),
                  crossover_rate: float = 0.8,
-                 n_patches: int = 4,
+                 n_patches: int = 1,
                  max_iterations: int = 1000
         ):
 
@@ -26,8 +23,7 @@ class OnePatchAttack(Attack):
             raise ValueError('n_patches must be >0'
                              '({})'.format(n_patches))
 
-        self.alpha = alpha
-        self.beta = beta
+        
         self.crossover_rate = crossover_rate
         self.mutation_rate = mutation_rate
         self.population = population

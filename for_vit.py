@@ -2,7 +2,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 import torchvision.utils as vutils 
 import timm
-#from timm.models import create_model
+from timm.models import create_model
 import torchvision.transforms as transforms
 import torch
 from OnePatch import OnePatchAttack
@@ -16,6 +16,7 @@ wandb.init(project= "one_pixel_attack_vit_small_thesis")
 artifact = wandb.Artifact("vit_small_1px_samples__" + str(wandb.run.id) , type="prediction")
 columns = ["id", "image", "ground_truth", "pred b4 attack", "confidence", "adv image", "pred after attack", "adv confidence"]
 log_table = wandb.Table(columns=columns)
+
 def show_img(im):
     k = im.view(3, 224, 224)
     #k = im.squeeze(0).permute(1, 2, 0).detach().cpu()
@@ -70,16 +71,7 @@ with tqdm(test_loader, unit = 'batch', position = 0, leave=True) as p_bar:
         if pred_after_attack != pred_before_attack:
             fool_rate += 1
 
-            # if batch_idx < 20:
-            #     vutils.save_image(data.data, "./%s/%d_%d_original.png" % (
-            #     "logs/one_patch/three", batch_idx, labels),
-            #                         normalize=True)
-            #     vutils.save_image(attacked_img.data, "./%s/%d_%d_adversarial_%d.png" % (
-            #         "logs/one_patch/three", batch_idx, labels, label_adv),
-            #                         normalize=True)
 
-        # p_bar.set_description("Attack Success: {:.2f}, FR:{:.2f}, Queries: {}".format((success * 100 / total), \
-        #                         (fool_rate * 100 /total), scr.required_iterations))
 
         wandb.log({"Attack Success" : (success * 100 / total),
                    "Fool rate" : (fool_rate * 100 /total),
