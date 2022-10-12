@@ -1,10 +1,12 @@
+#We thank Jere et al (2019). for making their code available : https://arxiv.org/abs/1912.02316
+
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import torchvision.utils as vutils
 from timm.models import create_model
 import torchvision.transforms as transforms
 import torch
-from OnePatch import OnePatchAttack
+# from OnePatch import OnePatchAttack
 from cPixelAttack import cOnePixel
 import matplotlib.pyplot as plt
 import  numpy as np
@@ -17,8 +19,8 @@ import torch.nn as nn
 
 
 #uncomment to log with wandb
-wandb.init(project= "one_pixel_attack_deit_small_thesis")
-artifact = wandb.Artifact("deit_small_1px_samples_" + str(wandb.run.id) , type="prediction")
+wandb.init(project= "one_pixel_attack_vit_small_thesis")
+artifact = wandb.Artifact("vit_small_2px_samples_" + str(wandb.run.id) , type="prediction")
 columns = ["id", "scr_img", "adv_image", "ground_truth", "pred b4 attack", "confidence", "gradcam_scr", "gradcam_adv", "pred after attack", "adv confidence"]
 log_table = wandb.Table(columns=columns)
 
@@ -30,7 +32,7 @@ def show_img(im):
     plt.show()
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-net = create_model('deit_small_patch16_224', pretrained=True)
+net = create_model('vit_small_patch16_224', pretrained=True)
 #net =  create_model("small_patch16_224_hierarchical", pretrained=True)
 net.to(device)
 net.eval()
@@ -120,7 +122,7 @@ with tqdm(test_loader, unit = 'batch', position = 0, leave=True) as p_bar:
         wandb.log({"Attack Success" : (success * 100 / total),
                    "Fool rate" : (fool_rate * 100 /total),
                    #"queries" : scr.required_iterations[0],
-                   "number of pixels":1})
+                   "number of pixels":2})
 
         log_table.add_data(batch_idx, wandb.Image(data), wandb.Image(attacked_img), gt_label.item(), pred_before_attack.item(), maxval.item(),\
                            wandb.Image(gradcam_img_scr), wandb.Image(gradcam_img_adv), pred_after_attack.item(), maxval_adv.item())
